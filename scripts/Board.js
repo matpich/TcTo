@@ -15,9 +15,9 @@ export default class Board {
     }
 
     //adds 'X' or 'O' into the cell
-    static add ({target, currentTarget}) {
+    static add ({target, currentTarget}, faction) {
         if (target === currentTarget) {
             console.log('jajko');
-        } else target.innerHTML = 'XXXXXX';
+        } else target.innerHTML = `${faction}`;
     }
 }

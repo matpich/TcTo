@@ -6,15 +6,19 @@ export default class Flow {
         Board.newPlane();
 
         document.getElementById('board').addEventListener('click', event => {
-            Board.add(event)
+            Board.add(event, this.currentPlayer.faction)
             this.currentPlayer.addField(event.target.id)
-            this.currentPlayer.checkIfWin() ? console.log('Wygrana') : console.log('Jeszcze nie')
+            if (this.currentPlayer.checkIfWin()) {
+                console.log(`Wygrana gracza: ${this.currentPlayer.faction}`);
+            } else {
+                this.changeTurn();
+            }
         })
 
 
         
-        this.playerOne = new Player();
-        this.playerTwo = new Player();
+        this.playerOne = new Player('X');
+        this.playerTwo = new Player('O');
 
         this.currentPlayer = this.playerOne;
     }
