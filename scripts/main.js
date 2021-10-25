@@ -1,7 +1,5 @@
-import Board from "./Board.js"
+import Flow from "./Flow.js"
 
-Board.newPlane();
+const game = new Flow();
 
-document.getElementById('board').addEventListener('click', event => {
-    Board.add(event)
-})
+game.changeTurn();

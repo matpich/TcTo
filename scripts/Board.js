@@ -1,4 +1,6 @@
 export default class Board {
+
+    //adds plane to DOM
     static newPlane () {
         const board = document.getElementById('board');
         for (let i = 1; i<=3; i++) {
@@ -12,6 +14,7 @@ export default class Board {
         }
     }
 
+    //adds 'X' or 'O' into the cell
     static add ({target, currentTarget}) {
         if (target === currentTarget) {
             console.log('jajko');
