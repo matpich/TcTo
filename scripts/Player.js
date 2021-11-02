@@ -12,7 +12,6 @@ export default class Player {
         for (let i = 1; i<=3; i++) {
             let winHorizontal = horizontal.filter(el => el == i);
             let winVertical = vertical.filter(el => el == i);
-            let slashWin = this.fields.filter(el => el == '')
     
             if (winHorizontal.length == 3) {
                 return true;
@@ -46,10 +45,27 @@ export default class Player {
         if (forwardslash.reduce( (a,c) => a+c) == 12) return true;
     }
 
-    addField (position) {
+    checkIfOccupied (xP, yP, opponent) {
+        //return if field is taken by opponent
+        let takenByOpponent = opponent.fields.find(({x,y}) => x == xP && y == yP);
+        console.log(opponent.faction, takenByOpponent, opponent.fields.length)
+        if (takenByOpponent) return true;
+
+        //return if field is already taken by player
+        let takenByPlayer = this.fields.find(({x,y}) => x == xP && y == yP);
+        if (takenByPlayer) return true;
+    }
+
+    addField ([xP, , yP], opponent) {
+        //prevents doubling the values
+        if (this.checkIfOccupied(xP,yP, opponent)) return false;
+
+        //ads value if non exist
         this.fields.push({
-            x: position[0],
-            y: position[2]
+            x: xP,
+            y: yP
         })
+
+        return true;
     }
 }
