@@ -19,6 +19,8 @@ export default class Flow {
 
             if (this.currentPlayer.checkIfWin()) {
                 console.log(`Wygrana gracza: ${this.currentPlayer.faction}`);
+            } else if (this.currentPlayer.checkIfDraw(this.awaitingPlayer)) {
+                console.log(`Remis.`);
             } else {
                 this.changeTurn();
             }
