@@ -45,14 +45,9 @@ export default class Player {
         if (forwardslash.reduce( (a,c) => a+c) == 12) return true;
     }
 
-    checkIfDraw (opponent) {
-        if (this.fields.length + opponent.fields.length == 9) return true;
-    }
-
     checkIfOccupied (xP, yP, opponent) {
         //return if field is taken by opponent
         let takenByOpponent = opponent.fields.find(({x,y}) => x == xP && y == yP);
-        console.log(opponent.faction, takenByOpponent, opponent.fields.length)
         if (takenByOpponent) return true;
 
         //return if field is already taken by player
