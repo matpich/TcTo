@@ -45,6 +45,29 @@ export default class Player {
         if (forwardslash.reduce( (a,c) => a+c) == 12) return true;
     }
 
+    checkIfDraw (opponent) {
+        //function doesn't check slash and backslash rows -it's not possible to draw without blocking these rows
+        let rowCounter = 0; 
+        
+        //checks horizontal 
+        for (let i = 1; i <=3; i++) {
+            let playerRow = this.fields.filter( ({x,y}) => x == i);
+            let computerRow = opponent.fields.filter( ({x,y}) => x == i);
+
+            if (playerRow.length != 0 && opponent.length != 0) rowCounter++
+        }
+
+        //checks vertical 
+        for (let i = 1; i <=3; i++) {
+            let playerRow = this.fields.filter( ({x,y}) => y == i);
+            let computerRow = opponent.fields.filter( ({x,y}) => y == i);
+
+            if (playerRow.length != 0 && opponent.length != 0) rowCounter++
+        }
+
+        if (rowCounter == 6) return true;
+    }
+
     checkIfOccupied (xP, yP, opponent) {
         //return if field is taken by opponent
         let takenByOpponent = opponent.fields.find(({x,y}) => x == xP && y == yP);

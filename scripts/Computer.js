@@ -54,6 +54,7 @@ export default class Computer {
     }
 
     static clickField(row) {
+        if (row == undefined) return;
         let emptyField = row.filter( el => el.outerText == '');
         emptyField.sort((a, b) => 0.3 - Math.random()); //if there's one than more empty fields then shuffle
         emptyField[0].click();
@@ -65,12 +66,6 @@ export default class Computer {
             if (Computer.checkCandidates(board[row])) {
                 rowsWithPotential.push(board[row]); //if row has potential to win add it to array of potential rows
             } 
-        }
-
-        //if there are no any rows with potential to win then it's a draw
-        if (rowsWithPotential.length == 0) {
-            Flow.draw();
-            return;
         }
 
         rowsWithPotential.sort((a, b) => 0.3- Math.random()); //if there are more than one row with potentail then it makes no difference which is choosen so potential rows are shuffled

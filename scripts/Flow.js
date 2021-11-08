@@ -14,13 +14,23 @@ export default class Flow {
 
         document.getElementById('board').addEventListener('click', event => {
 
+            
+            // if (this.currentPlayer.checkIfDraw(this.awaitingPlayer)) {
+            //     console.log("Remis");
+            //     return;
+            // }
+
             //if field was succesfully added to Player object it updates DOM, otherwise returns
             if (this.currentPlayer.addField(event.target.id, this.awaitingPlayer)) {
                 Board.add(event, this.currentPlayer.faction);
             } else return;            
 
+            
+
             if (this.currentPlayer.checkIfWin()) {
                 console.log(`Wygrana gracza: ${this.currentPlayer.faction}`);
+            } else if (this.currentPlayer.checkIfDraw(this.awaitingPlayer)) {
+                console.log(`Remis.`)
             } else {
                 this.changeTurn();
             }
@@ -38,14 +48,15 @@ export default class Flow {
         }
 
         this.turn = !this.turn;
-        this.move();
+        
+        this.computerMove();
     }    
 
     static draw () {
         console.log('Remis.');
     }
 
-    move() {
+    computerMove() {
         if (this.turn) {
             Computer.makeMove();
         }
