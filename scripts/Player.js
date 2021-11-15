@@ -2,20 +2,34 @@ export default class Player {
     constructor(faction) {
         this.faction = faction;
         this.fields = [];
+        this.victoryRow =[];
     }
 
     checkIfWin () {
-        //checks horizontal or vertical win
-        let horizontal = this.fields.map(({x}) => x);
-        let vertical = this.fields.map(({y}) => y);
+        // //checks horizontal or vertical win
+        // let horizontal = this.fields.map(({x}) => x);
+        // let vertical = this.fields.map(({y}) => y);
+
+        // for (let i = 1; i<=3; i++) {
+        //     let winHorizontal = horizontal.filter(el => el == i);
+        //     let winVertical = vertical.filter(el => el == i);
+    
+        //     if (winHorizontal.length == 3) {
+        //         return true;
+        //     } else if (winVertical.length == 3) {
+        //         return true;
+        //     }
+        // }  
 
         for (let i = 1; i<=3; i++) {
-            let winHorizontal = horizontal.filter(el => el == i);
-            let winVertical = vertical.filter(el => el == i);
+            let winHorizontal = this.fields.filter(el => el.x == i);
+            let winVertical = this.fields.filter(el => el.y == i);
     
             if (winHorizontal.length == 3) {
+                this.victoryRow = this.victoryRow.concat(winHorizontal);
                 return true;
             } else if (winVertical.length == 3) {
+                this.victoryRow = this.victoryRow.concat(winVertical);
                 return true;
             }
         }  
@@ -30,7 +44,10 @@ export default class Player {
                 return 0;
             }
         });
-        if (backslash.reduce( (a,c) => a+c) == 12) return true;
+        if (backslash.reduce( (a,c) => a+c) == 12) {
+            this.victoryRow = [{x:1,y:1},{x:2,y:2},{x:3,y:3}]; //it has to be done manualy due to verify method
+            return true;
+        }
 
         //checks forwardslash win        
         let forwardslash = this.fields.map(el => {
@@ -42,7 +59,10 @@ export default class Player {
                 return 0;
             }
         });
-        if (forwardslash.reduce( (a,c) => a+c) == 12) return true;
+        if (forwardslash.reduce( (a,c) => a+c) == 12) {
+            this.victoryRow = [{x:1,y:3},{x:2,y:2},{x:3,y:1}]; //it has to be done manualy due to verify method
+            return true;
+        }
     }
 
     checkIfDraw (opponent) {
@@ -54,7 +74,7 @@ export default class Player {
             let playerRow = this.fields.filter( ({x,y}) => x == i);
             let computerRow = opponent.fields.filter( ({x,y}) => x == i);
 
-            if (playerRow.length != 0 && opponent.length != 0) rowCounter++
+            if (playerRow.length != 0 && computerRow.length != 0) rowCounter++
         }
 
         //checks vertical 
@@ -62,7 +82,7 @@ export default class Player {
             let playerRow = this.fields.filter( ({x,y}) => y == i);
             let computerRow = opponent.fields.filter( ({x,y}) => y == i);
 
-            if (playerRow.length != 0 && opponent.length != 0) rowCounter++
+            if (playerRow.length != 0 && computerRow.length != 0) rowCounter++
         }
 
         if (rowCounter == 6) return true;

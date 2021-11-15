@@ -3,8 +3,9 @@ export default class Board {
     //adds plane to DOM
     static newPlane () {
         const board = document.createElement(`div`);
+        const start = document.querySelector(`.start`);
         board.id = `board`;
-        document.body.appendChild(board);
+        start.appendChild(board);
         for (let i = 1; i<=3; i++) {
             for (let j = 1; j<=3; j++) {
                 let field = document.createElement(`div`);

@@ -3,48 +3,53 @@ import Computer from "./Computer.js";
 import Player from "./Player.js";
 
 export default class Flow {
-    constructor() {
-        this.playerOne = new Player('X');
-        this.playerTwo = new Player('O');
-        this.currentPlayer = this.playerOne;
-        this.awaitingPlayer = this.playerTwo;
-        this.turn = false;
-
+    constructor(factionChoose) {
         Board.newPlane();
+        const startDiv = document.querySelector('.start');
+        const board = document.getElementById('board');
 
-        document.getElementById('board').addEventListener('click', event => {
-
-            
-            // if (this.currentPlayer.checkIfDraw(this.awaitingPlayer)) {
-            //     console.log("Remis");
-            //     return;
-            // }
-
+        board.addEventListener('click', event => {
             //if field was succesfully added to Player object it updates DOM, otherwise returns
             if (this.currentPlayer.addField(event.target.id, this.awaitingPlayer)) {
                 Board.add(event, this.currentPlayer.faction);
-            } else return;            
-
-            
-
+            } else return;           
+  
             if (this.currentPlayer.checkIfWin()) {
-                console.log(`Wygrana gracza: ${this.currentPlayer.faction}`);
+                for (let winField of this.currentPlayer.victoryRow) {
+                    document.getElementById(`${winField.x}-${winField.y}`).className += ' win';
+                }
             } else if (this.currentPlayer.checkIfDraw(this.awaitingPlayer)) {
                 console.log(`Remis.`)
+
             } else {
                 this.changeTurn();
             }
         })   
+        
 
+        if (factionChoose === "x") {
+            this.humanPlayer = new Player('X');
+            this.computerPlayer = new Computer('O', 'X');
+            this.currentPlayer = this.humanPlayer;
+            this.awaitingPlayer = this.computerPlayer;
+            this.turn = false;
+        } else {
+            this.humanPlayer = new Player('O');
+            this.computerPlayer =new Computer('X', 'O') ;
+            this.currentPlayer = this.computerPlayer;
+            this.awaitingPlayer = this.humanPlayer;
+            this.turn = true;
+            this.computerMove();
+        }  
     }
 
     changeTurn() {
-        if (this.currentPlayer === this.playerOne) {
-            this.currentPlayer = this.playerTwo;
-            this.awaitingPlayer = this.playerOne;
+        if (this.currentPlayer === this.humanPlayer) {
+            this.currentPlayer = this.computerPlayer;
+            this.awaitingPlayer = this.humanPlayer;
         } else {
-            this.currentPlayer = this.playerOne;
-            this.awaitingPlayer = this.playerTwo;
+            this.currentPlayer = this.humanPlayer;
+            this.awaitingPlayer = this.computerPlayer;
         }
 
         this.turn = !this.turn;
@@ -52,13 +57,9 @@ export default class Flow {
         this.computerMove();
     }    
 
-    static draw () {
-        console.log('Remis.');
-    }
-
     computerMove() {
         if (this.turn) {
-            Computer.makeMove();
+            this.computerPlayer.makeMove();
         }
     }
 }
