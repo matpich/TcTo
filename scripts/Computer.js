@@ -8,7 +8,6 @@ export default class Computer extends Player {
     //checks how many figures human has in row and if it's blocked by computer. If not then return true.
     checkDanger (row) {
         let figureCount = 0;
-        console.log(this.enemyFaction)
         for (let i of row ) {
             if (i.outerText == this.enemyFaction) {
                 figureCount++; //if human has figure in row increase counter

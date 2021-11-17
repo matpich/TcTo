@@ -6,21 +6,6 @@ export default class Player {
     }
 
     checkIfWin () {
-        // //checks horizontal or vertical win
-        // let horizontal = this.fields.map(({x}) => x);
-        // let vertical = this.fields.map(({y}) => y);
-
-        // for (let i = 1; i<=3; i++) {
-        //     let winHorizontal = horizontal.filter(el => el == i);
-        //     let winVertical = vertical.filter(el => el == i);
-    
-        //     if (winHorizontal.length == 3) {
-        //         return true;
-        //     } else if (winVertical.length == 3) {
-        //         return true;
-        //     }
-        // }  
-
         for (let i = 1; i<=3; i++) {
             let winHorizontal = this.fields.filter(el => el.x == i);
             let winVertical = this.fields.filter(el => el.y == i);

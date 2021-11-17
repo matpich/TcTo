@@ -6,22 +6,26 @@
     <meta name="description" content="Tic Tac Toe game">
     <meta name="keywords" content="tic tac toe cross circle game">
     <link rel="stylesheet" href="style.css">
-    
+
 </head>
 
 <body>
     <div class="start">
         <h2 id="header">Tic Tac Toe</h2>
         <h4>Choose side</h4>
-        <form>            
-            <label for="x-choice">X</label>
-            <input type="radio" id="x-choice" value="x" name="figure">
-            <label for="o-choice">O</label>
-            <input type="radio" id="o-choice" value="o" name="figure">
+        <form>
+            <div id="radio-buttons">
+                <label>Cross <br>
+                    <input type="radio" id="x-choice" value="x" name="figure">
+                </label>
+                <label>Circle <br>
+                    <input type="radio" id="o-choice" value="o" name="figure">
+                </label>
+            </div>
             <input type="submit" id="start-button" value="START">
         </form>
-        
     </div>
 </body>
 <script type="module" src="./scripts/main.js"></script>
+
 </html>

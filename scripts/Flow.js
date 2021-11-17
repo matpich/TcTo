@@ -7,25 +7,32 @@ export default class Flow {
         Board.newPlane();
         const startDiv = document.querySelector('.start');
         const board = document.getElementById('board');
+        this.activeGame = true;
 
         board.addEventListener('click', event => {
             //if field was succesfully added to Player object it updates DOM, otherwise returns
-            if (this.currentPlayer.addField(event.target.id, this.awaitingPlayer)) {
+            if (this.currentPlayer.addField(event.target.id, this.awaitingPlayer) && this.activeGame) {
                 Board.add(event, this.currentPlayer.faction);
             } else return;           
   
             if (this.currentPlayer.checkIfWin()) {
-                for (let winField of this.currentPlayer.victoryRow) {
-                    document.getElementById(`${winField.x}-${winField.y}`).className += ' win';
+                this.activeGame = false;
+                Board.endGame();
+                for (let field of this.currentPlayer.victoryRow) {
+                    document.getElementById(`${field.x}-${field.y}`).className += ' win';
                 }
             } else if (this.currentPlayer.checkIfDraw(this.awaitingPlayer)) {
+                this.activeGame = false;
+                for (let field of board.children) {
+                    field.className += ' win';
+                }
                 console.log(`Remis.`)
 
             } else {
                 this.changeTurn();
             }
         })   
-        
+   
 
         if (factionChoose === "x") {
             this.humanPlayer = new Player('X');

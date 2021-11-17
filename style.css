@@ -13,7 +13,7 @@ body {
 }
 
 #header {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 #board {
@@ -37,7 +37,32 @@ body {
     user-select: none;
 }
 
+.un-checked:hover {
+    border: 3px dashed black;
+}
+
 .win {
+    background-color: black;
+    color: white;
+}
+
+#headerContainer {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-evenly;
+
+    
+}
+
+#restart {
+    padding: 7px;
+    margin-bottom: 15px;
+    background-color: transparent;
+    border: 2px solid black;
+}
+
+#restart:hover {
     background-color: black;
     color: white;
 }
@@ -54,8 +79,15 @@ body {
     align-items: center;
 }
 form {
+    width: 20%;
+    box-sizing: border-box;
     margin: 10px 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 #start-button {
     height: 120px;
     width: 120px;
@@ -68,4 +100,29 @@ form {
     background-color: transparent;
     border: 2px solid black;
     border-radius: 50%;
+  }
+
+  #radio-buttons {
+      display: flex;
+      justify-content: space-between;
+  }
+
+  input[type="radio"] {
+      appearance: none;
+      width: 1.2em;
+      height: 1.2em;
+      color: black;
+      border: 3px solid black;
+      border-radius: 50%;
+
+      transform: translateY(0.2em);
+  }
+
+
+  input[type="radio"]:checked {
+    background-color: black;
+  }
+
+  label {
+      margin: 0px 10px;
   }

@@ -9,7 +9,7 @@ export default class Board {
         for (let i = 1; i<=3; i++) {
             for (let j = 1; j<=3; j++) {
                 let field = document.createElement(`div`);
-                field.className = `field`;
+                field.className = `field un-checked`;
                 field.id = `${i}-${j}`;
 
                 board.appendChild(field);
@@ -24,7 +24,17 @@ export default class Board {
         //prevents from overwrite the value in DOM
         } else if (target.innerHTML != '') {
             return;
-        } else target.innerHTML = `${faction}`;
-        
+        } else {
+            target.className = 'field';
+            target.innerHTML = `${faction}`;
+        }
+    }
+
+    static endGame() {
+        //removes "un-checked" css class from elements to prevent highlighting once game is finished
+        const allFields = document.querySelectorAll('.field');
+        for (let field of allFields) {
+            field.className = 'field';
+        }
     }
 }
